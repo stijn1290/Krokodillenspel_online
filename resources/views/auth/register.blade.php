@@ -1,4 +1,7 @@
-<x-guest-layout>
+@include('layouts.header', ['title' => 'Register'])
+
+<div class="max-w-md mx-auto bg-[#57B404] p-8 rounded-lg shadow-md mt-10">
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -49,4 +52,4 @@
             </x-primary-button>
         </div>
     </form>
-</x-guest-layout>
+</div>
