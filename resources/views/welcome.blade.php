@@ -34,7 +34,33 @@
             <li>Drankje naar keuze (bier, wijn, mix, shotjes)</li>
             <li>Gezellig gezelschap</li>
         </ul>
+        @if(Auth::check())
+            <div class="max-w-4xl mx-auto mt-8 p-6 bg-white shadow-md rounded-lg">
+                <h2 class="text-2xl font-semibold mb-4">My Friends</h2>
+
+                @if($friends->isEmpty())
+                    <p>No friends</p>
+                @else
+                    <ul class="space-y-2">
+                        @foreach($friends as $friend)
+                            <li class="p-3 bg-gray-100 rounded-md shadow-sm flex items-center justify-between">
+                                <span>{{ $friend->name }}</span>
+                                <form method="POST" action="{{ url('/friend-remove/' . $friend->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-red-500 hover:text-red-700">Remove</button>
+                                </form>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
+        @else
+            <p class="text-center mt-6 text-gray-600">Please <a href="/login" class="text-blue-500">log in</a> to see your friends.</p>
+        @endif
     </div>
+
+
 </main>
 
 <style>

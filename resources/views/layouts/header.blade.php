@@ -21,6 +21,18 @@
             <a href="{{ route('dashboard') }}">
                 <h1 class="text-outline text-3xl font-bold">Mijn Account</h1>
             </a>
+            <a href="{{ url('/users') }}">
+                <h1 class="text-outline text-3xl font-bold">Mijn Vrienden</h1>
+            </a>
+
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <x-responsive-nav-link :href="route('logout')"
+                                       onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </x-responsive-nav-link>
+            </form>
 
         @else
             <a href="{{ route('login') }}">
@@ -30,6 +42,7 @@
                 <h1 class="text-outline text-3xl font-bold">Register</h1>
             </a>
         @endif
+
 
 
 
