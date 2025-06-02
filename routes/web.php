@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::resource('game', 'App\Http\Controllers\GameController');
     Route::post('/friend-request/{id}', [FriendController::class, 'sendRequest']);
     Route::post('/friend-accept/{id}', [FriendController::class, 'acceptRequest']);
     Route::post('/friend-decline/{id}', [FriendController::class, 'declineRequest']);
