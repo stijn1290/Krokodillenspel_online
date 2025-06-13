@@ -5,7 +5,7 @@ namespace App\Services\Game\classes;
 class Tooth
 {
     private bool $bitemark;
-    private bool $pressed = false;
+    private bool $pressed;
     public function __construct(bool $bitemark, bool $pressed)
     {
         $this->bitemark = $bitemark;
@@ -18,5 +18,13 @@ class Tooth
     public function isPressed(): bool
     {
         return $this->pressed;
+    }
+    public function setPressed(Crocodile $crocodile): void
+    {
+        $this->pressed = true;
+        if ($this->doesBite())
+        {
+            $crocodile->setBitten();
+        }
     }
 }
