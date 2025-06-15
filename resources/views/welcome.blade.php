@@ -34,4 +34,5 @@
                     }
                 }
             </style>
+    </main>
 </x-app-layout>

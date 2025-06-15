@@ -4,13 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FriendController;
 use Illuminate\Support\Facades\Auth;
+use \App\Http\Controllers\GameController;
 
 Route::get('/', function () {
     $user = Auth::user();
     $friends = $user ? $user->friends() : collect(); // if logged in
 
     return view('welcome', compact('friends'));
-});
+})->name('home');
 use App\Models\User;
 
 Route::get('/users', function () {
@@ -41,5 +42,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/friend-remove/{id}', [FriendController::class, 'removeFriend']);
     Route::get('/friends', [FriendController::class, 'myFriends']);
 });
+Route::resource('game', 'App\Http\Controllers\GameController');
 
 require __DIR__.'/auth.php';
+Route::get('/match/{tooth}', [GameController::class, 'pressTooth'])->name('match.presstooth');
+Route::resource('leaderboard', 'App\Http\Controllers\LeaderboardController');
