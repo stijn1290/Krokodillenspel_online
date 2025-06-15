@@ -2,6 +2,7 @@
 
 namespace App\Services\Game;
 
+use App\Models\Current_game;
 use App\Models\User;
 use App\Models\Game;
 use App\Services\Game\classes\Crocodile;
@@ -49,12 +50,29 @@ class GameEngine
 
     public function gameEnd(GameClass $game): void
     {
+        if (session('turn') == $game->getPlayer1()->getDbUser()->name) {
+            $winnerScore = session('score_player_2');
+            $winner = $game->getPlayer2()->getDbUser()->id;
+            $loser = $game->getPlayer1()->getDbUser()->id;
+        }
+        else if(session('turn') == $game->getPlayer2()->getDbUser()->name) {
+            $winnerScore = session('score_player_1');
+            $winner = $game->getPlayer1()->getDbUser()->id;
+            $loser = $game->getPlayer2()->getDbUser()->id;
+        }
+        else
+        {
+            $winnerScore = 0;
+            $winner = null;
+            $loser = null;
+        }
         Game::create([
-            'winner_id' => $game->getWinner()->getDbUser()->id,
-            'loser_id' => $game->getLoser()->getDbUser()->id,
-            'score_winner' => $game->getWinner()->getTeethesPressedInt(),
-            'toothsPressedTotal' => $game->getCrocodile()->getToothPressedTotal(),
+            'winner_id' => $winner,
+            'loser_id' => $loser,
+            'score_winner' => $winnerScore,
+            'toothsPressedTotal' => session('score_player_1') + session('score_player_2'),
         ]);
+        Current_game::first()->delete();
         session()->flush();
     }
     private function getUnpressedToothIndex(Crocodile $crocodile): ?int

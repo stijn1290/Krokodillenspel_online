@@ -13,4 +13,12 @@ class Game extends Model
         'score_winner',
         'toothsPressedTotal'
     ];
+    public function winner()
+    {
+        return $this->belongsTo(User::class, 'winner_id');
+    }
+    public function loser()
+    {
+        return $this->belongsTo(User::class, 'loser_id');
+    }
 }

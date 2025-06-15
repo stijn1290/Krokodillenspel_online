@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-[#C0D51E]">
-<header class="bg-[#57B404] text-white p-5 mx-auto w-1/2 mt-20 rounded-3xl">
+<header class="bg-[#57B404] text-white p-5 mx-auto max-w-max mt-20 rounded-3xl">
     <div class="container flex items-center space-x-6 ">
         <img src="{{ asset('Loo.png') }}" alt="" class="w-40">
         <a href="/">
@@ -16,6 +16,9 @@
         </a>
         <a href="{{ route('game.create') }}">
             <h1 class="text-outline text-3xl font-bold">Spelen</h1>
+        </a>
+        <a href="{{ route('leaderboard.index') }}">
+            <h1 class="text-outline text-3xl font-bold">Leaderboard</h1>
         </a>
         @if(auth()->check())
             <a href="{{ route('dashboard') }}">

@@ -53,15 +53,11 @@ class GameController extends Controller
             session([
                 'current_match' => $match,
                 'turn' => $match->getPlayer1()->getDbUser()->name,
-                'score_player_1' => count($match->getPlayer1()->getTeethesPressed()),
-                'score_player_2' => count($match->getPlayer2()->getTeethesPressed()),
             ]);
         }
         else
         {
             $match = session('current_match');
-            session(['score_player_1' => count($match->getPlayer1()->getTeethesPressed())]);
-            session(['score_player_2' => count($match->getPlayer2()->getTeethesPressed())]);
         }
         session(['engine' => $engine]);
         return view('game.show', compact('match', 'engine', 'game'));
@@ -98,16 +94,18 @@ class GameController extends Controller
         $message = $match->getPlayer1()->pressTooth($match, $tooth);
         if ($message == "Tooth pressed and it bit") {
             session('engine')->gameEnd($match);
-            return redirect()->route('home');
+            return view('gameEndPage');
         }
         session(['message' => $message]);
         session([$tooth => true]);
         $currentPlayer = session('turn');
         if ($currentPlayer == $match->getPlayer1()->getDbUser()->name) {
+            session(['score_player_1' => session('score_player_1') + 1]);
             session(['turn' => $match->getPlayer2()->getDbUser()->name]);
         }
         else
         {
+            session(['score_player_2' => session('score_player_2') + 1]);
             session(['turn' => $match->getPlayer1()->getDbUser()->name]);
         }
         return redirect()->back();

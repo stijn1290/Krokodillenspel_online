@@ -46,3 +46,4 @@ Route::resource('game', 'App\Http\Controllers\GameController');
 
 require __DIR__.'/auth.php';
 Route::get('/match/{tooth}', [GameController::class, 'pressTooth'])->name('match.presstooth');
+Route::resource('leaderboard', 'App\Http\Controllers\LeaderboardController');

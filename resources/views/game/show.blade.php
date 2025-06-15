@@ -11,7 +11,11 @@
         <ul class="text-white text-lg flex flex-row justify-between">
             @foreach([$match->getPlayer1()->getDbUser(), $match->getPlayer2()->getDbUser()] as $user)
                 <li>Player: {{ $user->name }}</li>
-                <li>Score: {{ session('score_player_1')}}</li>
+                @if($user->id === $match->getPlayer1()->getDbUser()->id)
+                    <li>Score: {{ session('score_player_1') }}</li>
+                @else
+                    <li>Score: {{ session('score_player_2') }}</li>
+                @endif
             @endforeach
         </ul>
     </div>
@@ -21,7 +25,8 @@
         <form method="POST" action="{{ route('game.destroy', $game) }}">
             @csrf
             @method('DELETE')
-            <input type="submit" value="Quit game" class="bg-red-600 rounded-lg shadow-lg p-2 text-white cursor-pointer">
+            <input type="submit" value="Quit game"
+                   class="bg-red-600 rounded-lg shadow-lg p-2 text-white cursor-pointer">
         </form>
     </div>
 </div>

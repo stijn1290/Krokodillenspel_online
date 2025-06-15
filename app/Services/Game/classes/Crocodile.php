@@ -9,7 +9,7 @@ class Crocodile
     private int $toothesPressedTotal = 0;
     public function __construct()
     {
-        $randomIndex = rand(0, 12);
+        $randomIndex = rand(0, 11);
         for ($i = 0; $i < 12; $i++) {
             if ($i === $randomIndex) {
                 $tooth = new Tooth(true, false);
