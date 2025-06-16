@@ -21,7 +21,7 @@
             <h1 class="text-outline text-3xl font-bold">Leaderboard</h1>
         </a>
         @if(auth()->check())
-            <a href="{{ route('dashboard') }}">
+            <a href="{{ route('game.index') }}">
                 <h1 class="text-outline text-3xl font-bold">Mijn Account</h1>
             </a>
             <a href="{{ url('/users') }}">
