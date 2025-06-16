@@ -16,7 +16,8 @@ class GameController extends Controller
      */
     public function index()
     {
-        //
+        $games = Game::where('winner_id', Auth::id())->orWhere('loser_id', Auth::id())->get();
+        return view('game.index', compact('games'));
     }
 
     /**
